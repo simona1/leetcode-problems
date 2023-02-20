@@ -3,9 +3,10 @@
  * https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/
  *
  */
- import java.util.*;
 
- class Solution {
+import java.util.*;
+
+class Solution {
     public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
         List<Pair> list = new ArrayList<>();
         for (int[] a : nums1) {
@@ -43,7 +44,7 @@
         Arrays.sort(arr);
         for (int id : arr) {
             Pair p = map.get(id);
-            res[index] = new int[] {p.id, p.val};
+            res[index] = new int[] { p.id, p.val };
             ++index;
         }
         return res;
@@ -53,16 +54,20 @@
 class Pair {
     int id;
     int val;
+
     public Pair(int id, int val) {
         this.id = id;
         this.val = val;
     }
+
     public int getId() {
         return id;
     }
+
     public int getVal() {
         return val;
     }
+
     public String toString() {
         return "[" + this.id + ", " + this.val + "]";
     }
