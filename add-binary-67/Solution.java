@@ -6,7 +6,6 @@
  * 
  */
 
-
 import java.math.BigInteger;
 
 class Solution {

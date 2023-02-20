@@ -4,10 +4,11 @@
  *
  */
 
- import java.util.*;
+import java.util.*;
 
 class Solution {
     static int[] arr = null;
+
     public Solution() {
         if (arr != null) {
             return;
@@ -18,9 +19,9 @@ class Solution {
             arr[i] = 1;
             q.add(i);
         }
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int curr = q.remove();
-            for (int i = 1; ; i *= 2) {
+            for (int i = 1;; i *= 2) {
                 int a = curr - i;
                 if (a < 0) {
                     break;
@@ -34,7 +35,7 @@ class Solution {
                 arr[a] = arr[curr] + 1;
                 q.add(a);
             }
-            for (int i = 1; ; i *= 2) {
+            for (int i = 1;; i *= 2) {
                 int a = curr + i;
                 if (a >= arr.length) {
                     break;
