@@ -1,9 +1,6 @@
-/*
+/**
  * LeetCode problem # 35, 'Search Insert Position'
- * https://leetcode.com/problems/search-insert-position/
- *
- * Given a sorted array and a target, find the insertion index
- * for the target number.
+ * https://leetcode.com/problems/search-insert-position
  */
 
 class Solution {

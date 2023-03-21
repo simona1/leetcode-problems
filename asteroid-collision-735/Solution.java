@@ -1,7 +1,8 @@
-/*
-* LeetCode problem # 735, 'Asteroid Collision'
-* https://leetcode.com/problems/asteroid-collision
-*/
+
+/**
+ * LeetCode problem # 735, 'Asteroid Collision'
+ * https://leetcode.com/problems/asteroid-collision
+ */
 
 import java.util.*;
 

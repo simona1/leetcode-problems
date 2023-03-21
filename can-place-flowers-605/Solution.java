@@ -1,7 +1,7 @@
-/*
-* LeetCode problem # 605, 'Can Place Flowers'
-* https://leetcode.com/problems/can-place-flowers/
-*/
+/**
+ * LeetCode problem # 605, 'Can Place Flowers'
+ * https://leetcode.com/problems/can-place-flowers/
+ */
 
 class Solution {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {

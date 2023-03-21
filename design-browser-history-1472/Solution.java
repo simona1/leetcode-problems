@@ -1,8 +1,8 @@
 
 /**
-* LeetCode problem # 1472, 'Design Browser History'
-* https://leetcode.com/problems/design-browser-history
-*/
+ * LeetCode problem # 1472, 'Design Browser History'
+ * https://leetcode.com/problems/design-browser-history
+ */
 
 import java.util.*;
 

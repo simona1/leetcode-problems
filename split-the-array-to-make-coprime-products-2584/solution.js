@@ -1,4 +1,4 @@
-/*
+/**
  * LeetCode problem # 2584, 'Split Array to Make Coprime Products'
  * https://leetcode.com/problems/split-the-array-to-make-coprime-products
  */

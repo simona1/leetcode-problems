@@ -1,7 +1,7 @@
-/*
-* LeetCode problem # 2595, Number of Even and Odd Bits
-* https://leetcode.com/problems/number-of-even-and-odd-bits
-*/
+/**
+ * LeetCode problem # 2595, Number of Even and Odd Bits
+ * https://leetcode.com/problems/number-of-even-and-odd-bits
+ */
 
 class Solution {
     public int[] evenOddBit(int n) {

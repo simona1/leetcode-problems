@@ -1,7 +1,7 @@
-/*
+
+/**
  * LeetCode problem # 502, 'IPO'
  * https://leetcode.com/problems/ipo
- *
  */
 
 import java.util.*;

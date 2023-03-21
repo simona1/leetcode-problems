@@ -1,7 +1,7 @@
-/*
-* LeetCode problem # 657, 'Robot Return to Origin'
-* https://leetcode.com/problems/robot-return-to-origin
-*/
+/**
+ * LeetCode problem # 657, 'Robot Return to Origin'
+ * https://leetcode.com/problems/robot-return-to-origin
+ */
 
 class Solution {
     public boolean judgeCircle(String moves) {

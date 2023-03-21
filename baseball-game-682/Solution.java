@@ -1,8 +1,8 @@
 
 /**
-* LeetCode problem # 682, 'Baseball Game'
-* https://leetcode.com/problems/baseball-game
-*/
+ * LeetCode problem # 682, 'Baseball Game'
+ * https://leetcode.com/problems/baseball-game
+ */
 
 import java.util.Stack;
 
