@@ -7,7 +7,7 @@
  * @param {number} n
  * @return {number}
  */
-function binaryGap(num) {
+function binaryGap1(num) {
   let last = -1;
   let res = 0;
   for (let i = 0; i < 32; ++i) {
@@ -19,4 +19,18 @@ function binaryGap(num) {
     }
   }
   return res;
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+function binaryGap(num) {
+  const pieces = ("0" + num.toString(2) + "0")
+    .split("1")
+    .map((s) => s.length + 1);
+  pieces.pop();
+  pieces.shift();
+
+  return Math.max(0, ...pieces);
 }
