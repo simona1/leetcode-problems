@@ -8,35 +8,30 @@
  * @return {boolean}
  */
 function primeSubOperation(nums) {
-  let prime = 0;
-  for (let i = 2; i < nums[0]; ++i) {
-    if (isPrime(i)) {
-      prime = i;
-    }
-  }
-  nums[0] -= prime;
-
-  subtractPrimes(nums);
-  return isAscending(nums);
+  const primes = generatePrimes(1000);
+  subtractPrimes(nums, primes);
+  return isAscendingOrder(nums);
 }
 
-function subtractPrimes(nums) {
-  for (let i = 1; i < nums.length; ++i) {
-    let prime = 0;
+function generatePrimes(max) {
+  const primes = [];
 
-    for (let j = 2; j < nums[i]; ++j) {
-      if (isPrime(j) && nums[i] - j > nums[i - 1]) {
-        prime = j;
+  for (let i = 2; i <= max; ++i) {
+    let isPrime = true;
+    for (const j of primes) {
+      if (i % j === 0) {
+        isPrime = false;
+        break;
       }
     }
-
-    if (nums[i] - prime > nums[i - 1]) {
-      nums[i] -= prime;
+    if (isPrime) {
+      primes.push(i);
     }
   }
+  return primes;
 }
 
-function isAscending(nums) {
+function isAscendingOrder(nums) {
   for (let i = 1; i < nums.length; ++i) {
     if (nums[i] <= nums[i - 1]) {
       return false;
@@ -45,14 +40,15 @@ function isAscending(nums) {
   return true;
 }
 
-function isPrime(n) {
-  if (n === 1) {
-    return false;
-  }
-  for (let i = 2; i < n; ++i) {
-    if (n % i === 0) {
-      return false;
+function subtractPrimes(nums, primes) {
+  for (let i = 0; i < nums.length; ++i) {
+    let prime = 0;
+
+    for (const j of primes) {
+      if (nums[i] - j > (nums[i - 1] ?? 0)) {
+        prime = j;
+      }
     }
+    nums[i] -= prime;
   }
-  return true;
 }
