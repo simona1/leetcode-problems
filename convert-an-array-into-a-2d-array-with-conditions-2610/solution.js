@@ -8,31 +8,24 @@
  * @return {number[][]}
  */
 function findMatrix(nums) {
-  const freq = new Map();
+  const map = new Map();
 
-  for (const num of nums) {
-    freq.set(num, (freq.get(num) ?? 0) + 1);
+  for (const n of nums) {
+    map.set(n, (map.get(n) ?? 0) + 1);
   }
-  const values = [...freq.values()].sort((a, b) => a - b);
-  if (values.every((val) => val == 1)) {
-    return [nums];
-  }
-  if (nums.length == 1) {
-    return [[nums]];
-  }
-  const rows = values[values.length - 1];
 
-  const res = Array(rows)
-    .fill(null)
-    .map(() => []);
+  const res = [];
 
-  for (const key of freq.keys()) {
-    const n = freq.get(key);
-    for (let i = 0; i < freq.get(key); ++i) {
-      if (res[i] != null) {
-        res[i].push(key);
-      }
+  while (true) {
+    const row = [...map.keys()].filter((x) => map.get(x) > 0);
+    if (row.length === 0) {
+      break;
+    }
+    res.push(row);
+    for (const x of row) {
+      map.set(x, map.get(x) - 1);
     }
   }
+
   return res;
 }
