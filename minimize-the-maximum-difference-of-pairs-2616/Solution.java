@@ -7,6 +7,21 @@
 import java.util.*;
 
 class Solution {
+    private boolean isPair(int[] nums, int p, int diff) {
+        int count = 0;
+        int ptr = 1;
+        
+        while (ptr < nums.length) {
+            if (nums[ptr] - nums[ptr - 1] <= diff) {
+                ++count;
+                ptr += 2;
+            } else {
+                ptr += 1;
+            }
+        }
+        return count >= p;
+    }
+
     public int minimizeMax(int[] nums, int p) {
         Arrays.sort(nums);
         int n = nums.length;
@@ -16,29 +31,12 @@ class Solution {
 
         while (low < high) {
             int mid = low + (high - low) / 2;
-            if (canGetPairs(nums, p, mid)) {
+            if (isPair(nums, p, mid)) {
                 high = mid;
             } else {
                 low = mid + 1;
             }
         }
         return low;
-    }
-
-    private boolean canGetPairs(int[] nums, int p, int diff) {
-        int count = 0;
-
-        int start = 0;
-        int end = nums.length - 1;
-
-        while (start < end) {
-            if (nums[start + 1] - nums[start] <= diff) {
-                ++count;
-                start += 2;
-            } else {
-                start++;
-            }
-        }
-        return count >= p;
     }
 }
