@@ -7,77 +7,74 @@
 import java.util.*;
 
 class Solution {
-    int[][] dirs = { { 0, 1 }, { 1, 0 } };
-
     public int minimumVisitedCells(int[][] grid) {
         int r = grid.length;
         int c = grid[0].length;
 
+        int[][] res = new int[r][c];
+        for (int i = 0; i < r; ++i) {
+            for (int j = 0; j < c; ++j) {
+                res[i][j] = -1;
+            }
+        }
+
         List<TreeSet<Integer>> rowList = new ArrayList<>();
         for (int i = 0; i < r; ++i) {
-            TreeSet<Integer> curr = new TreeSet<>();
+            TreeSet<Integer> set = new TreeSet<>();
             for (int j = 0; j < c; ++j) {
-                curr.add(j);
+                set.add(j);
             }
-            rowList.add(curr);
+            rowList.add(set);
         }
 
         List<TreeSet<Integer>> colList = new ArrayList<>();
-        for (int i = 0; i < c; ++i) {
-            TreeSet<Integer> curr = new TreeSet<>();
-            for (int j = 0; j < r; ++j) {
-                curr.add(j);
+        for (int j = 0; j < c; ++j) {
+            TreeSet<Integer> set = new TreeSet<>();
+            for (int i = 0; i < r; ++i) {
+                set.add(i);
             }
-            colList.add(curr);
+            colList.add(set);
         }
 
-        int[][] dist = new int[r][c];
-        for (int i = 0; i < r; ++i) {
-            for (int j = 0; j < c; ++j) {
-                dist[i][j] = -1;
-            }
-        }
-
-        dist[0][0] = 1;
-        rowList.get(0).remove(0);
-        colList.get(0).remove(0);
-
+        res[0][0] = 1;
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[] { 0, 0 });
 
+        rowList.get(0).remove(0);
+        colList.get(0).remove(0);
+
         while (!q.isEmpty()) {
             int[] curr = q.remove();
-            int x = curr[0];
-            int y = curr[1];
-            int k = grid[x][y];
-
+            int i = curr[0];
+            int j = curr[1];
+            int k = grid[i][j];
             if (k == 0) {
                 continue;
             }
 
             List<int[]> neigh = new ArrayList<>();
 
-            Set<Integer> colset = colList.get(y).subSet(x + 1, true, x + k, true);
-            for (int nx : colset) {
-                neigh.add(new int[] { nx, y });
+            for (int nj : rowList.get(i).subSet(j + 1, true, j + k, true)) {
+                neigh.add(new int[] { i, nj });
             }
 
-            Set<Integer> rowset = rowList.get(x).subSet(y + 1, true, y + k, true);
-            for (int ny : rowset) {
-                neigh.add(new int[] { x, ny });
+            for (int ni : colList.get(j).subSet(i + 1, true, i + k, true)) {
+                neigh.add(new int[] { ni, j });
             }
 
             for (int[] next : neigh) {
-                int nx = next[0];
-                int ny = next[1];
-
-                rowList.get(nx).remove(ny);
-                colList.get(ny).remove(nx);
-
-                dist[nx][ny] = 1 + dist[x][y];
                 q.add(next);
+
+                int ni = next[0];
+                int nj = next[1];
+
+                res[ni][nj] = res[i][j] + 1;
+
+                rowList.get(ni).remove(nj);
+                colList.get(nj).remove(ni);
+
             }
         }
-        return dist[r - 1][c - 1];
+        return res[r - 1][c - 1];
     }
 }
