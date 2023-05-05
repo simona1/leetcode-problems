@@ -4,45 +4,30 @@
  * https://leetcode.com/problems/dota2-senate/
  */
 
-class Solution {
-    public void banNext(String senate, boolean[] banned, char toBan, int index) {
-        int ptr = index;
-        while (true) {
-            if (senate.charAt(ptr) == toBan && !banned[ptr]) {
-                banned[ptr] = true;
-                break;
-            }
-            ptr = (ptr + 1) % senate.length();
-        }
-    }
+import java.util.*;
 
+class Solution {
     public String predictPartyVictory(String senate) {
         int n = senate.length();
-        boolean[] banned = new boolean[n];
+        Queue<Integer> r = new LinkedList<>();
+        Queue<Integer> d = new LinkedList<>();
 
-        int rc = 0;
-        int dc = 0;
         for (int i = 0; i < n; ++i) {
             if (senate.charAt(i) == 'R') {
-                ++rc;
+                r.add(i);
             } else {
-                ++dc;
+                d.add(i);
             }
         }
-
-        int nextMove = 0;
-        while (rc > 0 && dc > 0) {
-            if (!banned[nextMove]) {
-                if (senate.charAt(nextMove) == 'D') {
-                    banNext(senate, banned, 'R', (nextMove + 1) % n);
-                    --rc;
-                } else {
-                    banNext(senate, banned, 'D', (nextMove + 1) % n);
-                    --dc;
-                }
+        while (!r.isEmpty() && !d.isEmpty()) {
+            int rs = r.remove();
+            int ds = d.remove();
+            if (rs < ds) {
+                r.add(rs + n);
+            } else {
+                d.add(ds + n);
             }
-            nextMove = (nextMove + 1) % n;
         }
-        return rc == 0 ? "Dire" : "Radiant";
+        return r.isEmpty() ? "Dire" : "Radiant";
     }
 }
