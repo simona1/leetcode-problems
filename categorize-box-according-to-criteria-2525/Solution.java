@@ -1,7 +1,7 @@
 
 /**
  * LeetCode problem # 2525, 'Categorize Box According to Criteria'
- * https://leetcode.com/problems/categorize-box-according-to-criteria
+ * https://leetcode.com/problems/categorize-box-according-to-criteria/
  */
 
 class Solution {
