@@ -1,7 +1,7 @@
 
 /**
  * LeetCode problem # 228, 'Summary Ranges'
- * https://leetcode.com/problems/summary-ranges
+ * https://leetcode.com/problems/summary-ranges/
  */
 
 import java.util.*;
@@ -10,17 +10,21 @@ class Solution {
     public List<String> summaryRanges(int[] nums) {
 
         List<String> res = new ArrayList<>();
+        Stack<int[]> st = new Stack<>();
 
-        for (int i = 0, j = 0; i < nums.length; ++i) {
-            if (i + 1 < nums.length && nums[i + 1] == nums[i] + 1) {
-                continue;
-            }
-            if (i == j) {
-                res.add(nums[j] + "");
+        for (int num : nums) {
+            if (st.isEmpty() || st.peek()[1] != num - 1) {
+                st.push(new int[] { num, num });
             } else {
-                res.add(nums[j] + "->" + nums[i]);
+                st.peek()[1] = num;
             }
-            j = i + 1;
+        }
+
+        for (int[] curr : st) {
+            int a = curr[0];
+            int b = curr[1];
+
+            res.add(a != b ? (a + "->" + b) : a + "");
         }
         return res;
     }
