@@ -10,44 +10,36 @@ class Solution {
     static long MOD = (long) Math.pow(10, 9) + 7;
 
     public int specialPerm(int[] nums) {
-        return solve(nums, new Stack<>(), 0, new HashMap<>());
+
+        Map<Integer, Map<Integer, Integer>> cache = new HashMap<>();
+        return solve(nums, -1, 0, cache);
     }
 
-    private int solve(int[] nums, Stack<Integer> st, int used, Map<Integer, Map<Integer, Integer>> cache) {
-        if (st.size() == nums.length) {
+    private int solve(int[] nums, int last, int used, Map<Integer, Map<Integer, Integer>> cache) {
+        int n = nums.length;
+        if (used + 1 == (1 << n)) {
             return 1;
         }
 
-        Map<Integer, Integer> innerCache = cache.get(used);
-        int last = st.isEmpty() ? -1 : st.peek();
-
-        if (innerCache != null) {
-            Integer fromCache = innerCache.get(last);
-            if (fromCache != null) {
-                return fromCache;
-            }
-        } else {
-            cache.put(used, new HashMap<>());
+        Map<Integer, Integer> inner = cache.computeIfAbsent(used, value -> new HashMap<>());
+        Integer cached = inner.get(last);
+        if (cached != null) {
+            return cached;
         }
+
         int res = 0;
-        for (int i = 0; i < nums.length; ++i) {
+        for (int i = 0; i < n; ++i) {
             if ((used & (1 << i)) != 0) {
                 continue;
             }
 
-            if (!st.isEmpty()) {
-                if (nums[i] % last != 0 && last % nums[i] != 0) {
-                    continue;
-                }
+            if (nums[i] % last != 0 && last % nums[i] != 0) {
+                continue;
             }
-            st.push(nums[i]);
-            used += (1 << i);
-
-            res += solve(nums, st, used, cache);
+            res += solve(nums, nums[i], used + (1 << i), cache);
             res %= MOD;
-            st.pop();
-            used -= (1 << i);
         }
+
         cache.get(used).put(last, res);
         return res;
     }
