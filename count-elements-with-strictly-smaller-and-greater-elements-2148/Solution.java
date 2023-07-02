@@ -5,23 +5,22 @@
  * https://leetcode.com/problems/count-elements-with-strictly-smaller-and-greater-elements/
  */
 
-import java.util.*;
-
 class Solution {
     public int countElements(int[] nums) {
-        Arrays.sort(nums);
         int n = nums.length;
 
         int res = 0;
-        Map<Integer, Integer> map = new HashMap<>();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
 
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            min = Math.min(min, num);
+            max = Math.max(max, num);
         }
 
-        for (int key : map.keySet()) {
-            if (key > nums[0] && key < nums[n - 1]) {
-                res += map.get(key);
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] > min && nums[i] < max) {
+                ++res;
             }
         }
         return res;
