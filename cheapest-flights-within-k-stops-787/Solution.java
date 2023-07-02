@@ -8,42 +8,52 @@ import java.util.*;
 
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, List<int[]>> neigh = new HashMap<>();
-        for (int[] flight : flights) {
-            neigh.computeIfAbsent(flight[0], value -> new ArrayList<>()).add(new int[] { flight[1], flight[2] });
+        Map<Integer, List<Flight>> neigh = new HashMap<>();
+        for (int[] f : flights) {
+            neigh.computeIfAbsent(f[0], val -> new ArrayList<>()).add(new Flight(f[1], f[2], 0));
         }
 
-        int[] dist = new int[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
+        PriorityQueue<Flight> pq = new PriorityQueue<>((a, b) -> a.d - b.d);
+        int[][] dist = new int[n][k + 2];
 
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[] { src, 0 });
-        int stops = 0;
+        for (int[] row : dist) {
+            Arrays.fill(row, Integer.MAX_VALUE);
+        }
+        pq.add(new Flight(src, 0, 0));
 
-        while (stops <= k && !q.isEmpty()) {
-            int sz = q.size();
+        while (!pq.isEmpty()) {
+            Flight fl = pq.remove();
 
-            while (sz-- > 0) {
-                int[] curr = q.remove();
-                int node = curr[0];
-                int distance = curr[1];
-
-                if (!neigh.containsKey(node)) {
-                    continue;
-                }
-
-                for (int[] edge : neigh.get(node)) {
-                    int ng = edge[0];
-                    int price = edge[1];
-                    if (price + distance >= dist[ng]) {
-                        continue;
-                    }
-                    dist[ng] = price + distance;
-                    q.add(new int[] { ng, dist[ng] });
-                }
+            if (dist[fl.to][fl.m] <= fl.d) {
+                continue;
             }
-            stops++;
+            dist[fl.to][fl.m] = fl.d;
+
+            if (fl.m >= k + 1) {
+                continue;
+            }
+
+            for (Flight next : neigh.getOrDefault(fl.to, new ArrayList<>())) {
+                pq.add(new Flight(next.to, fl.d + next.d, fl.m + 1));
+            }
         }
-        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
+
+        int res = Integer.MAX_VALUE;
+        for (int d : dist[dst]) {
+            res = Math.min(res, d);
+        }
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
+}
+
+class Flight {
+    int to;
+    int d;
+    int m;
+
+    Flight(int to, int d, int m) {
+        this.to = to;
+        this.d = d;
+        this.m = m;
     }
 }
