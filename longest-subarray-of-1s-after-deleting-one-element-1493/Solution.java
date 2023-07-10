@@ -1,7 +1,6 @@
-
 /**
  * LeetCode problem # 1493, 'Longest Subarray of 1's After Deleting One Element'
- * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
+ * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element
  */
 
 class Solution {
@@ -19,6 +18,5 @@ class Solution {
             res = Math.max(res, i - index);
         }
         return res;
-
     }
 }
