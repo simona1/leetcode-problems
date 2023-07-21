@@ -1,6 +1,7 @@
+
 /**
  * LeetCode problem # 207, 'Course Schedule'
- * https://leetcode.com/problems/course-schedule
+ * https://leetcode.com/problems/course-schedule/
  */
 
 import java.util.*;
@@ -18,7 +19,7 @@ class Course {
 class Solution {
     private Course createIfAbsent(Map<Integer, Course> neigh, Integer course) {
         neigh.computeIfAbsent(course, k -> new Course());
-        return neigh.get(course); 
+        return neigh.get(course);
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
