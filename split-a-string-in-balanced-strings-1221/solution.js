@@ -7,22 +7,11 @@
  * @param {string} s
  * @return {number}
  */
-function balancedStringSplit(s) {
-  let lc = 0;
-  let rc = 0;
-  let count = 0;
 
-  for (const c of s) {
-    if (c === "L") {
-      ++lc;
-    } else {
-      ++rc;
-    }
-    if (lc === rc) {
-      ++count;
-      lc = 0;
-      rc = 0;
-    }
-  }
-  return count;
+function balancedStringSplit(s) {
+  let balance = 0;
+  return [...s].reduce((acc, curr) => {
+    balance += curr === "L" ? 1 : -1;
+    return balance === 0 ? acc + 1 : acc;
+  }, 0);
 }
