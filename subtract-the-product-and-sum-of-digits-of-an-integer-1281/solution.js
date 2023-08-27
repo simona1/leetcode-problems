@@ -24,3 +24,11 @@ function* digits(num) {
     num = Math.floor(num / 10);
   }
 }
+
+function* getDigits(num) {
+  while (num > 0) {
+    const mod = num % 10;
+    yield mod;
+    num = (num - mod) / 10;
+  }
+}
