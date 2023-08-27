@@ -1,6 +1,6 @@
 /**
- * LeetCode problem # 2646, 'Minimize the Total Price of the Trips'
- * https://leetcode.com/problems/minimize-the-total-price-of-the-trips
+ * LeetCode problem # 646, 'Maximum Length of Pair Chain'
+ * https://leetcode.com/problems/maximum-length-of-pair-chain/
  */
 
 /**
