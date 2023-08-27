@@ -6,7 +6,7 @@
 /**
  * @return {Function}
  */
-var createHelloWorld = function () {
+const createHelloWorld = function () {
   return function (...args) {
     return "Hello World";
   };
