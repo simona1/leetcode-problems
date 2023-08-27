@@ -7,23 +7,19 @@
  * @param {number[]} nums
  * @return {number[]}
  */
+
 function separateDigits(nums) {
-  const res = [];
-  for (const num of nums) {
-    const digits = (num + "").split("");
-    for (const digit of digits) {
-      res.push(Number(digit));
-    }
-  }
-  return res;
+  return nums.flatMap((num) => getDigits(num));
 }
 
-// Solution with flatMap
+function getDigits(num) {
+  const res = [];
+  let p = 10 ** Math.floor(Math.log10(num));
 
-/**
- * @param {number[]} nums
- * @return {number[]}
- */
-function separateDigits(nums) {
-  return nums.flatMap((num) => (num + "").split("")).map(Number);
+  while (p > 0) {
+    res.push(Math.floor(num / p));
+    num %= p;
+    p = Math.floor(p / 10);
+  }
+  return res;
 }
