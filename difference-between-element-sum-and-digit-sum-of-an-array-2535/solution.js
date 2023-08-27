@@ -7,22 +7,23 @@
  * @param {number[]} nums
  * @return {number}
  */
+
 function differenceOfSum(nums) {
-  function getDigitSum(num) {
-    let sum = 0;
-
-    while (num > 0) {
-      const digit = num % 10;
-      sum += digit;
-      num = Math.floor(num / 10);
-    }
-    return sum;
-  }
-
   const elemSum = nums.reduce((acc, num) => num + acc);
-  const digitSum = nums.reduce((acc, n) => {
-    return getDigitSum(n) + acc;
-  }, 0);
+
+  const digits = nums.flatMap((num) => getDigits(num));
+  const digitSum = digits.reduce((acc, dig) => dig + acc);
 
   return Math.abs(elemSum - digitSum);
+}
+
+function getDigits(num) {
+  const res = [];
+
+  while (num > 0) {
+    const d = num % 10;
+    res.push(d);
+    num = (num - d) / 10;
+  }
+  return res;
 }
