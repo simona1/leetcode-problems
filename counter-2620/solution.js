@@ -7,11 +7,16 @@
  * @param {number} n
  * @return {Function} counter
  */
-var createCounter = function (n) {
-  return function () {
-    return n++;
-  };
-};
+function createCounter(n) {
+  const curr = counter(n);
+  return () => curr.next().value;
+}
+
+function* counter(n) {
+  while (true) {
+    yield n++;
+  }
+}
 
 /**
  * const counter = createCounter(10)
