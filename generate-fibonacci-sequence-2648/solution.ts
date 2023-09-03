@@ -6,16 +6,19 @@
 /**
  * @return {Generator<number>}
  */
-const fibGenerator1 = function* () {
-  let a = 0;
-  let b = 1;
-  while (true) {
-    yield a;
-    let c = a + b;
-    a = b;
-    b = c;
-  }
+function* fibGenerator(): Generator<number, any, number> {
+    let a = 1;
+    let b = 0;
+
+    while (true) {
+        [a, b] = [b, a + b];
+        yield a;
+        
+    }
 };
+
+//...13, -8, 5, -3, 2, -1, 1, 0, 1, 1, 2, 3, 5, 8, 13...
+
 
 /**
  * const gen = fibGenerator();
