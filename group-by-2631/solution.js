@@ -8,18 +8,13 @@
  * @return {Array}
  */
 Array.prototype.groupBy = function (fn) {
-  const map = new Map();
-
+  const groups = {};
   for (const elem of this) {
     const key = fn(elem);
-    let group = map.get(key);
-    if (group == null) {
-      group = [];
-      map.set(key, group);
-    }
-    group.push(elem);
+    groups[key] ??= [];
+    groups[key].push(elem);
   }
-  return Object.fromEntries(map.entries());
+  return groups;
 };
 
 /**
