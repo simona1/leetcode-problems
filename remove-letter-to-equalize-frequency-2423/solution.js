@@ -8,25 +8,38 @@
  * @return {boolean}
  */
 function equalFrequency(word) {
-  const diff = (a, b) => Math.abs(a - b);
+  const freq = {};
+  for (const c of word) {
+    freq[c] = (freq[c] ?? 0) + 1;
+  }
+  const freq2 = {};
+  for (const val of Object.values(freq)) {
+    freq2[val] = (freq2[val] ?? 0) + 1;
+  }
+  return isGood(freq2);
+}
+function isGood(freq2) {
+  const keys = Object.keys(freq2).map(Number);
+  // more than 2
+  if (keys.length > 2) {
+    return false;
+  }
 
-  const counts = [...word].reduce((a, c) => {
-    a[c.charCodeAt(0) - 97]++;
-    return a;
-  }, Array(26).fill(0));
+  // one unique
+  if (keys.length === 1) {
+    const val = keys[0];
+    return val === 1 ? freq2[val] >= 2 : freq2[val] === 1;
+  }
 
-  for (let i = 0; i < 26; ++i) {
-    if (!counts[i]) {
-      continue;
-    }
-    const newCounts = [...counts];
-    newCounts[i]--;
-    const set = new Set(newCounts);
+  // Two unique
+  if (keys.length === 2) {
+    const [smallerFreq, largerFreq] = keys.sort((a, b) => a - b);
 
-    if (set.size === 1) {
+    if (smallerFreq === 1 && freq2[smallerFreq] === 1) {
       return true;
     }
-    if (set.size === 2 && set.has(0)) {
+
+    if (largerFreq - smallerFreq === 1 && freq2[largerFreq] === 1) {
       return true;
     }
   }
