@@ -7,13 +7,12 @@
  * @return {Generator<number>}
  */
 const fibGenerator1 = function* () {
-  let a = 0;
-  let b = 1;
+  let a = 1;
+  let b = 0;
+
   while (true) {
+    [a, b] = [b, a + b];
     yield a;
-    let c = a + b;
-    a = b;
-    b = c;
   }
 };
 
