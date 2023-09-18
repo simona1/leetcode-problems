@@ -3,7 +3,7 @@
  * https://leetcode.com/problems/replace-words
  */
 
-function replaceWords(dictionary, sentence) {
+function replaceWords1(dictionary, sentence) {
   return sentence
     .split(" ")
     .map((word) => findRootWord(word, dictionary))
